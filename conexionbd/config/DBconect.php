@@ -1,7 +1,7 @@
 <?php
 
 class Database {
-    public $db; // controladores db
+    public  $db; // controladores db
     private static $dns = "mysql:host=localhost;dbname=prueba"; //url del BD
     private static $user = "root"; // usuario de la conexion
     private static $pass = "" ; // contraseña del usuario 
@@ -13,7 +13,7 @@ class Database {
     }
     
     public static function getInstance(){
-        if(isset(self::$instance)){
+        if(!isset(self::$instance)){
             $object = __CLASS__;
             self::$instance = new $object;
         }
@@ -24,7 +24,7 @@ class Database {
     public function insertar($nombre, $apellido, $edad, $email){
         try {
             $conexion = Database::getInstance();
-            $query=$conexion->db->prepare("INSERT INTO persona (nombre,apellido,email,edad) VALUES (:nombre,:apellido,:email,:edad);" );
+            $query=$conexion->db->prepare("INSERT INTO persona (nombre,apellido,email,edad) VALUES (:nombre,:apellido,:email,:edad)" );
             $query->execute(
             array(
 
@@ -36,8 +36,12 @@ class Database {
             );
             return  1 ; // retorna 1 si fue exitoso
        
-        } catch (PDOException)    {   return  0 ; // retporna 0 si falla
-    }
+        } catch (PDOException  $error) {
+            echo $error;
+            return 0; //retorna 0 si falla 
+        } 
+        
+    
     }
     
     
