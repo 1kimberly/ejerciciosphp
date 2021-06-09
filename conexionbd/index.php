@@ -25,7 +25,7 @@
             </div>';
            }
             if ($_GET['confirm'] ==="1"){   
-                '<div class="alert alert-success" role="alert">
+                echo '<div class="alert alert-success" role="alert">
                 Dato ingresado correctamente
             </div>';
             }
